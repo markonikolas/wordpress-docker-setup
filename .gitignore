@@ -17,3 +17,6 @@
 
 # samples
 !.example.env
+
+# scripts
+!wait.sh
