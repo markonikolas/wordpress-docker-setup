@@ -1,7 +1,15 @@
-# TASK RUNNER
-FROM node:16.14-slim as task-runner
+ARG WORDPRESS_VERSION=latest
+ARG MYSQL_VERSION=latest
+ARG NODE_VERSION=latest
 
-ARG THEME_PATH=wp-content/themes/nst-metal
+FROM node:$NODE_VERSION as task-runner
+
+ENV GREEN='\033[1;32m' PURPLE='\033[0;35m' NC='\033[0m'
+
+ARG MODE=development THEME_PATH=wp-content/themes/twentytwentyone
+
+RUN if [ "$MODE" = "verbose" ] ; then \
+    echo "\n${GREEN}NODE_VERSION:${NC} ${NODE_VERSION} \n${GREEN}THEME_PATH:${NC} ${THEME_PATH}\n"; fi
 
 WORKDIR /var/www/html/${THEME_PATH}
 
@@ -14,7 +22,7 @@ ENTRYPOINT [ "npm", "run" ]
 CMD [ "watch" ]
 
 # APP
-FROM wordpress:latest as application
+FROM wordpress:$WORDPRESS_VERSION as application
 
 RUN apt update && \
     apt install -y vim && \
@@ -41,10 +49,10 @@ USER ${USERID}
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
-CMD [ "apache2-foreground", "--", "./permissions.sh" ]
+CMD [ "apache2-foreground" ]
 
 # DB
-FROM mysql:8.0 as database
+FROM mysql:$MYSQL_VERSION as database
 
 ARG DUMP=wordpress.sql.zip
 
