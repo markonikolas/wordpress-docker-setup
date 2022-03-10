@@ -42,7 +42,7 @@ services:
         MODE: ${MODE} 
     volumes:
       - .:/var/www/html
-      - node_modules:/var/www/html/wp-content/themes/nst-metal/node_modules
+      - node_modules:/var/www/html/wp-content/themes/null/node_modules
     ports:
       - "80:80"
     restart: always
@@ -66,7 +66,7 @@ services:
         MODE: ${MODE}
     volumes:
       - .:/var/www/html
-      - node_modules:/var/www/html/wp-content/themes/nst-metal/node_modules
+      - node_modules:/var/www/html/wp-content/themes/null/node_modules
 
   wp_cli:
     depends_on:
