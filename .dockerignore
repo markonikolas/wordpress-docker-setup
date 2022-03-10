@@ -1,0 +1,79 @@
+# -----------------------------------------------------------------
+# .gitignore for WordPress @salcode
+# ver 20180808
+#
+# From the root of your project run
+# curl -O https://gist.githubusercontent.com/salcode/b515f520d3f8207ecd04/raw/.gitignore
+# to download this file
+#
+# By default all files are ignored.  You'll need to whitelist
+# any mu-plugins, plugins, or themes you want to include in the repo.
+#
+# -----------------------------------------------------------------
+
+# ignore everything in the root except the "wp-content" directory.
+/*
+!wp-content/
+
+# ignore everything in the "wp-content" directory, except:
+# mu-plugins, plugins, and themes directories
+wp-content/*
+
+# ignore all files starting with . or ~
+.*
+~*
+
+# ignore node dependency directories (used by grunt)
+node_modules/
+
+# ignore OS generated files
+ehthumbs.db
+Thumbs.db
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
+
+# ignore compiled files
+dist/
+build/
+
+# ignore packaged files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# default plugin blacklist
+wp-content/plugins/akismet
+wp-content/plugins/hello.php
+
+# -------------------------
+# BEGIN Whitelisted Files
+# -------------------------
+
+# track favicon files, if they exist
+!favicon*.png
+!favicon*.ico
+
+# track scripts and configs
+!wp-config.php
+!.htaccess
+!wait.sh
+!permissions.sh
+
+# track these mu-plugins, plugins, and themes
+!wp-content/mu-plugins/
+!wp-content/plugins/
+!wp-content/themes/nst-metal
+!wp-content/themes/twentytwentytwo
+!wp-content/plugins
+!wp-content/mu-plugins
+!wp-content/languages
+!wp-content/upgrade
+!wordpress.sql.zip
