@@ -4,12 +4,7 @@ ARG NODE_VERSION=latest
 
 FROM node:$NODE_VERSION as task-runner
 
-ENV GREEN='\033[1;32m' PURPLE='\033[0;35m' NC='\033[0m'
-
-ARG MODE=development THEME_PATH=wp-content/themes/twentytwentyone
-
-RUN if [ "$MODE" = "verbose" ] ; then \
-    echo "\n${GREEN}NODE_VERSION:${NC} ${NODE_VERSION} \n${GREEN}THEME_PATH:${NC} ${THEME_PATH}\n"; fi
+ARG THEME_PATH=wp-content/themes/twentytwentyone
 
 WORKDIR /var/www/html/${THEME_PATH}
 
@@ -43,7 +38,7 @@ COPY ./permissions.sh ${ROOT_PATH}
 
 WORKDIR ${ROOT_PATH}
 
-RUN chmod ug+x wait.sh permissions.sh
+RUN chmod ug+x wait.sh
 
 USER ${USERID}
 

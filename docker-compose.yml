@@ -16,7 +16,6 @@ services:
       target: database
       args:
         MYSQL_VERSION: ${MYSQL_VERSION} 
-        MODE: ${MODE}
     volumes:
       - db:/var/lib/mysql
     restart: on-failure:3
@@ -39,7 +38,6 @@ services:
       target: application
       args:
         WORDPRESS_VERSION: ${WORDPRESS_VERSION}
-        MODE: ${MODE} 
     volumes:
       - .:/var/www/html
       - node_modules:/var/www/html/wp-content/themes/null/node_modules
@@ -63,7 +61,6 @@ services:
       target: task-runner
       args:
         NODE_VERSION: ${NODE_VERSION}
-        MODE: ${MODE}
     volumes:
       - .:/var/www/html
       - node_modules:/var/www/html/wp-content/themes/null/node_modules
