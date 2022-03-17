@@ -76,4 +76,4 @@ wp-content/plugins/hello.php
 !wp-content/mu-plugins
 !wp-content/languages
 !wp-content/upgrade
-!wordpress.sql.zip
+!demo.sql.zip

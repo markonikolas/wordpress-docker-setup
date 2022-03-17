@@ -11,11 +11,13 @@ x-wp-env:
 
 services:
   db:
+    platform: linux/amd64
     build:
       context: .
       target: database
       args:
-        MYSQL_VERSION: ${MYSQL_VERSION} 
+        MYSQL_VERSION: ${MYSQL_VERSION}
+        DUMP: ${WORDPRESS_DUMP_NAME}
     volumes:
       - db:/var/lib/mysql
     restart: on-failure:3
@@ -26,8 +28,6 @@ services:
       MYSQL_USER: ${WORDPRESS_DB_USER}
       MYSQL_PASSWORD: ${WORDPRESS_DB_PASS}
       MYSQL_ROOT_PASSWORD: ${WORDPRESS_ROOT_PASS}
-    cap_add:
-      - SYS_NICE
 
   web:
     depends_on:
@@ -40,7 +40,7 @@ services:
         WORDPRESS_VERSION: ${WORDPRESS_VERSION}
     volumes:
       - .:/var/www/html
-      - node_modules:/var/www/html/wp-content/themes/null/node_modules
+      - node_modules:/var/www/html/wp-content/themes/twentytwentyone/node_modules
     ports:
       - "80:80"
     restart: always
@@ -60,10 +60,12 @@ services:
       context: .
       target: task-runner
       args:
-        NODE_VERSION: ${NODE_VERSION}
+        - NODE_VERSION=${NODE_VERSION}
+        - THEME=${ACTIVE_THEME}
+    command: ['start']
     volumes:
       - .:/var/www/html
-      - node_modules:/var/www/html/wp-content/themes/null/node_modules
+      - node_modules:/var/www/html/wp-content/themes/${ACTIVE_THEME}/node_modules
 
   wp_cli:
     depends_on:

@@ -4,11 +4,11 @@ ARG NODE_VERSION=latest
 
 FROM node:$NODE_VERSION as task-runner
 
-ARG THEME_PATH=wp-content/themes/twentytwentyone
+ARG THEME=twentytwentyone
 
-WORKDIR /var/www/html/${THEME_PATH}
+COPY "wp-content/themes/${THEME}" "/var/www/html/wp-content/themes/${THEME}"
 
-COPY ${THEME_PATH}/* ./
+WORKDIR /var/www/html/wp-content/themes/${THEME}
 
 RUN npm ci
 
@@ -33,8 +33,6 @@ RUN useradd --shell /bin/bash --no-create-home --gid ${GROUPID} ${USERID}
 USER root
 
 COPY . ${ROOT_PATH}
-
-COPY ./permissions.sh ${ROOT_PATH}
 
 WORKDIR ${ROOT_PATH}
 
